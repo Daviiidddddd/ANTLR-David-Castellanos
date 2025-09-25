@@ -1,43 +1,40 @@
-// placeholder CalcRedesign.g4 David Castellanos
-
-grammar CalcOriginal;
+grammar CalcRedesign;
 
 prog : stat+ ;
 
 stat
-  : expr NEWLINE            # printExpr
-  | NEWLINE                 # blank
+  : expr NEWLINE
+  | NEWLINE
   ;
 
 expr : add ;
 
 add
-  : mul (op=('+'|'-') mul)*  # Add
+  : pow (op=('+'|'-') add)?   # AddRight
   ;
 
 mul
-  : pow (op=('*'|'/') pow)*  # Mul
+  : add (op=('*'|'/') add)*   # MulLeft
   ;
 
 pow
-  : unary ( '^' unary )*     # PowLeft
+  : unary ( '^' pow )?        # PowRight
   ;
 
 unary
-  : '-' unary                # UnaryMinus
-  | postfix                  # ToPostfix
+  : '-' unary                 # UnaryMinusR
+  | postfix
   ;
 
 postfix
-  : primary ('!')*           # Postfix
+  : primary ('!')*            # PostfixR
   ;
 
 primary
-  : NUMBER                   # Number
-  | '(' expr ')'             # Parens
+  : NUMBER
+  | '(' expr ')'
   ;
 
 NUMBER : [0-9]+ ('.' [0-9]+)? ;
 WS : [ \t]+ -> skip ;
 NEWLINE: '\r'? '\n' ;
-
