@@ -1,4 +1,4 @@
-# Calculadora con ANTLR
+# Calculadora con ANTLR David Castellanos
 
 En este caso se implementó una calculadora usando ANTLR (capítulo 4 del libro).  
 Acá lo que pasa es que se definen las gramáticas que describen las expresiones y luego se generan el lexer y el parser con ANTLR. Después se usa un visitor para evaluar las expresiones.
